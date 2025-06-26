@@ -259,7 +259,7 @@ table td:before {
     }
 }
 
-/* Producten-tabel altijd horizontaal scrollbaar */
+/* Producten-tabel altijd klassiek, alleen horizontaal scrollbaar */
 .producten-tabel-wrapper {
     width: 100%;
     overflow-x: auto;
@@ -298,5 +298,41 @@ table td:before {
   }
   #producten-tabel td:before {
     display: none;
+  }
+}
+
+/* Dagboek-tabel blijft mobiel-vriendelijk met blokken */
+@media (max-width: 700px) {
+  #dagboek-tabel, #dagboek-tabel thead, #dagboek-tabel tbody, #dagboek-tabel th, #dagboek-tabel td, #dagboek-tabel tr {
+    display: block;
+  }
+  #dagboek-tabel thead {
+    display: none;
+  }
+  #dagboek-tabel tr {
+    margin-bottom: 10px;
+    background: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    padding: 6px 0;
+  }
+  #dagboek-tabel td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border: none;
+    font-size: 1em;
+    border-bottom: 1px solid #eee;
+  }
+  #dagboek-tabel td:last-child {
+    border-bottom: none;
+  }
+  #dagboek-tabel td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+    flex: 1 0 50%;
+    text-align: left;
   }
 } 
