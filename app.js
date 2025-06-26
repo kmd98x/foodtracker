@@ -35,15 +35,15 @@ function renderProducten() {
     producten.forEach((prod, idx) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td data-label="Naam">${prod.naam}</td>
-            <td data-label="Kcal">${prod.kcal}</td>
-            <td data-label="Vet">${prod.vet}</td>
-            <td data-label="Verz. vet">${prod.verzadigd}</td>
-            <td data-label="Koolhydraten">${prod.koolhydraten}</td>
-            <td data-label="Suiker">${prod.suiker}</td>
-            <td data-label="Eiwit">${prod.eiwit}</td>
-            <td data-label="✏️"><button class="edit-product" data-idx="${idx}" title="Bewerk">✏️</button></td>
-            <td data-label="🗑️"><button class="delete-product" data-idx="${idx}" title="Verwijder">🗑️</button></td>
+            <td>${prod.naam}</td>
+            <td>${prod.kcal}</td>
+            <td>${prod.vet}</td>
+            <td>${prod.verzadigd}</td>
+            <td>${prod.koolhydraten}</td>
+            <td>${prod.suiker}</td>
+            <td>${prod.eiwit}</td>
+            <td><button class="edit-product" data-idx="${idx}" title="Bewerk">✏️</button></td>
+            <td><button class="delete-product" data-idx="${idx}" title="Verwijder">🗑️</button></td>
         `;
         productenTabelBody.appendChild(tr);
     });
