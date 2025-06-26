@@ -54,14 +54,16 @@
       <input type="number" id="dagboek-gram" placeholder="Aantal gram" min="1" required>
       <button type="submit">Toevoegen aan dagboek</button>
     </form>
-    <table id="dagboek-tabel">
-      <thead>
-        <tr>
-          <th>Moment</th><th>Product</th><th>Gram</th><th>Kcal</th><th>Vet</th><th>Verz. vet</th><th>Koolhydraten</th><th>Suiker</th><th>Eiwit</th><th>✏️</th><th>🗑️</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="dagboek-tabel-wrapper">
+      <table id="dagboek-tabel">
+        <thead>
+          <tr>
+            <th>Moment</th><th>Product</th><th>Gram</th><th>Kcal</th><th>Vet</th><th>Verz. vet</th><th>Koolhydraten</th><th>Suiker</th><th>Eiwit</th><th>✏️</th><th>🗑️</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
     <!-- Totaal alles en per eetmoment in één tabel -->
     <h3>Overzicht per eetmoment en totaal</h3>
