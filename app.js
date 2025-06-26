@@ -75,14 +75,17 @@ function renderProducten() {
 }
 productForm.addEventListener('submit', e => {
     e.preventDefault();
+    function parseNum(val) {
+        return +String(val).replace(',', '.');
+    }
     const prod = {
         naam: document.getElementById('product-naam').value.trim(),
-        kcal: +document.getElementById('product-kcal').value,
-        vet: +document.getElementById('product-vet').value,
-        verzadigd: +document.getElementById('product-verzadigd').value,
-        kh: +document.getElementById('product-kh').value,
-        suiker: +document.getElementById('product-suiker').value,
-        eiwit: +document.getElementById('product-eiwit').value
+        kcal: parseNum(document.getElementById('product-kcal').value),
+        vet: parseNum(document.getElementById('product-vet').value),
+        verzadigd: parseNum(document.getElementById('product-verzadigd').value),
+        kh: parseNum(document.getElementById('product-kh').value),
+        suiker: parseNum(document.getElementById('product-suiker').value),
+        eiwit: parseNum(document.getElementById('product-eiwit').value)
     };
     if (!prod.naam) return;
     let producten = getProducten();
