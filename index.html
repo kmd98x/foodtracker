@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voedingsdagboek</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Voedingsdagboek</h1>
+  <nav>
+    <button id="tab-producten">Producten</button>
+    <button id="tab-dagboek">Dagboek</button>
+    <button id="tab-overzicht">Overzicht</button>
+  </nav>
+  <section id="producten-section" class="tab-section">
+    <h2>Productenbeheer</h2>
+    <form id="product-form">
+      <input type="text" id="product-naam" placeholder="Productnaam" required>
+      <input type="number" id="product-kcal" placeholder="Kcal/100g" required>
+      <input type="number" id="product-vet" placeholder="Vetten/100g (g)" required>
+      <input type="number" id="product-verzadigd" placeholder="Verzadigd vet/100g (g)" required>
+      <input type="number" id="product-kh" placeholder="Koolhydraten/100g (g)" required>
+      <input type="number" id="product-suiker" placeholder="Suiker/100g (g)" required>
+      <input type="number" id="product-eiwit" placeholder="Eiwit/100g (g)" required>
+      <button type="submit">Toevoegen</button>
+    </form>
+    <table id="producten-tabel">
+      <thead>
+        <tr>
+          <th>Naam</th><th>Kcal</th><th>Vet</th><th>Verz. vet</th><th>Koolhydraten</th><th>Suiker</th><th>Eiwit</th><th>✏️</th><th>🗑️</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+  <section id="dagboek-section" class="tab-section" style="display:none;">
+    <h2>Dagboek</h2>
+    <form id="dagboek-form">
+      <select id="dagboek-moment" required>
+        <option value="">Kies eetmoment...</option>
+        <option>Ontbijt</option>
+        <option>Lunch</option>
+        <option>Tussendoor</option>
+        <option>Diner</option>
+        <option>Voor training</option>
+        <option>Na training</option>
+      </select>
+      <input list="producten-datalist" id="dagboek-product-zoek" placeholder="Zoek of kies product..." autocomplete="off" required>
+      <datalist id="producten-datalist"></datalist>
+      <input type="number" id="dagboek-gram" placeholder="Aantal gram" min="1" required>
+      <button type="submit">Toevoegen aan dagboek</button>
+    </form>
+    <table id="dagboek-tabel">
+      <thead>
+        <tr>
+          <th>Moment</th><th>Product</th><th>Gram</th><th>Kcal</th><th>Vet</th><th>Verz. vet</th><th>Koolhydraten</th><th>Suiker</th><th>Eiwit</th><th>✏️</th><th>🗑️</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Totaal alles en per eetmoment in één tabel -->
+    <h3>Overzicht per eetmoment en totaal</h3>
+    <table id="momenten-totaal-tabel">
+      <thead>
+        <tr>
+          <th>Moment</th><th>Kcal</th><th>Vet</th><th>Koolhydraten</th><th>Eiwit</th><th>Suiker</th><th>Verz. vet</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+  <section id="overzicht-section" class="tab-section" style="display:none;">
+    <h2>Overzicht</h2>
+    <div class="charts">
+      <canvas id="chart-kcal"></canvas>
+      <canvas id="chart-vet"></canvas>
+      <canvas id="chart-verzadigd"></canvas>
+      <canvas id="chart-kh"></canvas>
+      <canvas id="chart-suiker"></canvas>
+      <canvas id="chart-eiwit"></canvas>
+    </div>
+    <div class="behoefte">
+      <p><strong>Dagelijkse behoefte:</strong></p>
+      <ul>
+        <li>Kcal: 1600</li>
+        <li>Eiwit: 120g</li>
+        <li>Vet: 59g</li>
+        <li>Koolhydraten: 130-150g</li>
+      </ul>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
