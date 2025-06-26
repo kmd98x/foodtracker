@@ -35,15 +35,15 @@ function renderProducten() {
     producten.forEach((prod, idx) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${prod.naam}</td>
-            <td>${prod.kcal}</td>
-            <td>${prod.vet}</td>
-            <td>${prod.verzadigd}</td>
-            <td>${prod.kh}</td>
-            <td>${prod.suiker}</td>
-            <td>${prod.eiwit}</td>
-            <td><button class="edit-product" data-idx="${idx}" title="Bewerk">✏️</button></td>
-            <td><button class="delete-product" data-idx="${idx}" title="Verwijder">🗑️</button></td>
+            <td data-label="Naam">${prod.naam}</td>
+            <td data-label="Kcal">${prod.kcal}</td>
+            <td data-label="Vet">${prod.vet}</td>
+            <td data-label="Verz. vet">${prod.verzadigd}</td>
+            <td data-label="Koolhydraten">${prod.koolhydraten}</td>
+            <td data-label="Suiker">${prod.suiker}</td>
+            <td data-label="Eiwit">${prod.eiwit}</td>
+            <td data-label="✏️"><button class="edit-product" data-idx="${idx}" title="Bewerk">✏️</button></td>
+            <td data-label="🗑️"><button class="delete-product" data-idx="${idx}" title="Verwijder">🗑️</button></td>
         `;
         productenTabelBody.appendChild(tr);
     });
@@ -56,7 +56,7 @@ function renderProducten() {
             document.getElementById('product-kcal').value = prod.kcal;
             document.getElementById('product-vet').value = prod.vet;
             document.getElementById('product-verzadigd').value = prod.verzadigd;
-            document.getElementById('product-kh').value = prod.kh;
+            document.getElementById('product-koolhydraten').value = prod.koolhydraten;
             document.getElementById('product-suiker').value = prod.suiker;
             document.getElementById('product-eiwit').value = prod.eiwit;
             productForm.dataset.editIdx = idx;
@@ -80,7 +80,7 @@ productForm.addEventListener('submit', e => {
         kcal: +document.getElementById('product-kcal').value,
         vet: +document.getElementById('product-vet').value,
         verzadigd: +document.getElementById('product-verzadigd').value,
-        kh: +document.getElementById('product-kh').value,
+        koolhydraten: +document.getElementById('product-koolhydraten').value,
         suiker: +document.getElementById('product-suiker').value,
         eiwit: +document.getElementById('product-eiwit').value
     };
@@ -133,11 +133,11 @@ function berekenTotaal(items) {
         acc.kcal += Number(item.kcal);
         acc.vet += Number(item.vet);
         acc.verzadigd += Number(item.verzadigd);
-        acc.kh += Number(item.kh);
+        acc.koolhydraten += Number(item.koolhydraten);
         acc.suiker += Number(item.suiker);
         acc.eiwit += Number(item.eiwit);
         return acc;
-    }, {kcal:0, vet:0, verzadigd:0, kh:0, suiker:0, eiwit:0});
+    }, {kcal:0, vet:0, verzadigd:0, koolhydraten:0, suiker:0, eiwit:0});
 }
 
 function renderMomentenTotaalTabel() {
@@ -153,7 +153,7 @@ function renderMomentenTotaalTabel() {
     const limieten = {
         kcal: 1600,
         vet: 59,
-        kh: 150,
+        koolhydraten: 150,
         eiwit: 120,
         suiker: 30,
         verzadigd: 15
@@ -179,7 +179,7 @@ function renderMomentenTotaalTabel() {
             <td>${r.moment}</td>
             <td${r.kcal > limieten.kcal ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.kcal.toFixed(1)}</td>
             <td${r.vet > limieten.vet ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.vet.toFixed(1)}</td>
-            <td${r.kh > limieten.kh ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.kh.toFixed(1)}</td>
+            <td${r.koolhydraten > limieten.koolhydraten ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.koolhydraten.toFixed(1)}</td>
             <td${r.eiwit > limieten.eiwit ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.eiwit.toFixed(1)}</td>
             <td${r.suiker > limieten.suiker ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.suiker.toFixed(1)}</td>
             <td${r.verzadigd > limieten.verzadigd ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.verzadigd.toFixed(1)}</td>
@@ -199,7 +199,7 @@ function renderDagboek() {
             <td>${item.kcal}</td>
             <td>${item.vet}</td>
             <td>${item.verzadigd}</td>
-            <td>${item.kh}</td>
+            <td>${item.koolhydraten}</td>
             <td>${item.suiker}</td>
             <td>${item.eiwit}</td>
             <td><button class="edit-dagboek" data-idx="${idx}" title="Bewerk">✏️</button></td>
@@ -247,7 +247,7 @@ dagboekForm.addEventListener('submit', e => {
         kcal: +(prod.kcal * gram / 100).toFixed(1),
         vet: +(prod.vet * gram / 100).toFixed(1),
         verzadigd: +(prod.verzadigd * gram / 100).toFixed(1),
-        kh: +(prod.kh * gram / 100).toFixed(1),
+        koolhydraten: +(prod.koolhydraten * gram / 100).toFixed(1),
         suiker: +(prod.suiker * gram / 100).toFixed(1),
         eiwit: +(prod.eiwit * gram / 100).toFixed(1),
         moment
@@ -275,7 +275,7 @@ const behoefte = {
     kcal: 1600,
     eiwit: 120,
     vet: 59,
-    kh: 140, // gemiddelde van 130-150
+    koolhydraten: 150,
     suiker: 30, // nu limiet opgegeven
     verzadigd: 15 // nu limiet opgegeven
 };
@@ -287,17 +287,17 @@ function renderOverzicht() {
         acc.kcal += Number(item.kcal);
         acc.vet += Number(item.vet);
         acc.verzadigd += Number(item.verzadigd);
-        acc.kh += Number(item.kh);
+        acc.koolhydraten += Number(item.koolhydraten);
         acc.suiker += Number(item.suiker);
         acc.eiwit += Number(item.eiwit);
         return acc;
-    }, {kcal:0, vet:0, verzadigd:0, kh:0, suiker:0, eiwit:0});
+    }, {kcal:0, vet:0, verzadigd:0, koolhydraten:0, suiker:0, eiwit:0});
     // Pie charts
     const chartData = [
         {id:'chart-kcal', label:'Kcal', value:totals.kcal, max:behoefte.kcal, limiet:behoefte.kcal},
         {id:'chart-vet', label:'Vet (g)', value:totals.vet, max:behoefte.vet, limiet:behoefte.vet},
         {id:'chart-verzadigd', label:'Verzadigd vet (g)', value:totals.verzadigd, max:behoefte.verzadigd, limiet:behoefte.verzadigd},
-        {id:'chart-kh', label:'Koolhydraten (g)', value:totals.kh, max:150, limiet:150},
+        {id:'chart-kh', label:'Koolhydraten (g)', value:totals.koolhydraten, max:150, limiet:150},
         {id:'chart-suiker', label:'Suiker (g)', value:totals.suiker, max:behoefte.suiker, limiet:behoefte.suiker},
         {id:'chart-eiwit', label:'Eiwit (g)', value:totals.eiwit, max:behoefte.eiwit, limiet:behoefte.eiwit}
     ];
