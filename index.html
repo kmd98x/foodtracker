@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Voedingsdagboek</title>
+  <title>KMD's foodtracker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>Voedingsdagboek</h1>
+  <h1>KMD's foodtracker</h1>
   <nav>
     <button id="tab-producten">Producten</button>
     <button id="tab-dagboek">Dagboek</button>
     <button id="tab-overzicht">Overzicht</button>
   </nav>
   <section id="producten-section" class="tab-section">
-    <h2>Productenbeheer</h2>
+    <h2>Voeg een product toe</h2>
     <form id="product-form">
       <input type="text" id="product-naam" placeholder="Productnaam" required>
       <input type="text" pattern="[0-9]*[.,]?[0-9]*" id="product-kcal" placeholder="Kcal/100g" required>
@@ -38,7 +38,7 @@
     </div>
   </section>
   <section id="dagboek-section" class="tab-section" style="display:none;">
-    <h2>Dagboek</h2>
+    <h2>Wat heb je vandaag gegeten?</h2>
     <form id="dagboek-form">
       <select id="dagboek-moment" required>
         <option value="">Kies eetmoment...</option>
@@ -79,7 +79,6 @@
     </div>
   </section>
   <section id="overzicht-section" class="tab-section" style="display:none;">
-    <h2>Overzicht</h2>
     <div class="charts">
       <canvas id="chart-kcal"></canvas>
       <canvas id="chart-vet"></canvas>

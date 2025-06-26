@@ -325,19 +325,37 @@ function renderOverzicht() {
         // label met gegeten/behoefte
         const mainLabel = `${data.label} (${data.value.toFixed(1)}/${data.max})`;
         // kleur rood als limiet overschreden
-        const kleur = data.value > data.limiet ? '#c62828' : '#4caf50';
+        let kleur = data.value > data.limiet ? '#c62828' : null;
+        let gradient = null;
+        if (!kleur) {
+            gradient = ctx.createLinearGradient(0, 0, 120, 120);
+            gradient.addColorStop(0, '#8A4674');
+            gradient.addColorStop(0.5, '#D26A78');
+            gradient.addColorStop(1, '#E48478');
+            kleur = gradient;
+        }
         charts[data.id] = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: [mainLabel, 'Resterend'],
+                labels: [mainLabel],
                 datasets: [{
-                    data: [data.value, Math.max(0, data.max-data.value)],
-                    backgroundColor: [kleur, '#e0e0e0']
+                    data: [data.value],
+                    backgroundColor: [kleur],
+                    borderColor: '#606672',
+                    borderWidth: 2
                 }]
             },
             options: {
                 plugins: {
-                    legend: {display: true, position: 'bottom'}
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: '#606672',
+                            font: { weight: '500', size: 14 },
+                            filter: (legendItem, data) => legendItem.text !== 'Resterend'
+                        }
+                    }
                 },
                 responsive: false
             }

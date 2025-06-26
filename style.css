@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Inter', system-ui, Arial, sans-serif;
-    background: #f7f7f7;
+    background: #0E1011;
     color: #222;
     margin: 0;
     padding: 0;
@@ -24,28 +24,36 @@ nav {
 nav button {
     padding: 10px 18px;
     border: none;
-    background: #4caf50;
+    background: linear-gradient(90deg, #8A4674 0%, #D26A78 60%, #E48478 100%);
     color: #fff;
     border-radius: 8px;
     font-size: 1em;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
 nav button.active, nav button:hover {
-    background: #388e3c;
+    filter: brightness(1.10) saturate(1.15);
+    box-shadow: 0 4px 16px rgba(212,106,120,0.18);
 }
 
 .tab-section {
     width: 98vw;
     max-width: 480px;
     margin: 0 auto 24px auto;
-    background: #fff;
+    background: #131617;
+    border: 1.5px solid rgba(255,255,255,0.07);
+    color: #f6f8fa;
     padding: 14px 4vw 18px 4vw;
     border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.tab-section h2 {
+    color: #6F7784;
+    margin: 10px 0 24px 0;
 }
 
 form {
@@ -59,24 +67,38 @@ form input, form button, form select {
     padding: 12px;
     font-size: 1em;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #333;
     margin-bottom: 0;
     outline: none;
+    background: #0E1011;
+    color: #A9A9A9;
 }
 form input:focus, form select:focus {
-    border: 1.5px solid #4caf50;
+    border: 2px solid transparent;
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    box-shadow: 0 0 0 2px transparent;
+    background-image:
+        linear-gradient(#0E1011, #0E1011),
+        linear-gradient(90deg, #8A4674 0%, #D26A78 60%, #E48478 100%);
 }
 form button {
-    background: #4caf50;
+    background: linear-gradient(90deg, #8A4674 0%, #D26A78 60%, #E48478 100%);
     color: #fff;
     font-weight: 600;
     border: none;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
     margin-top: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
 form button:hover {
-    background: #388e3c;
+    filter: brightness(1.10) saturate(1.15);
+    box-shadow: 0 4px 16px rgba(212,106,120,0.18);
+}
+form input::placeholder {
+    color: #515866;
+    opacity: 1;
 }
 
 /* Tabellen responsive */
@@ -174,13 +196,14 @@ table td:before {
     margin-bottom: 18px;
 }
 .charts canvas {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 12px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    box-shadow: none;
     padding: 6px;
     width: 120px !important;
-    height: 120px !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    height: 150px !important;
+    margin-bottom: 48px;
 }
 
 .behoefte {
@@ -267,29 +290,27 @@ table td:before {
     -webkit-overflow-scrolling: touch;
     margin-bottom: 18px;
 }
-#producten-tabel, #dagboek-tabel, #momenten-totaal-tabel {
+#producten-tabel, #dagboek-tabel, #momenten-tabel-wrapper {
     box-sizing: border-box;
 }
 #producten-tabel {
-    min-width: 700px;
-    width: max-content;
-    background: #fff;
+    background: #131617;
+    color: #f6f8fa;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: 1.5px solid rgba(255,255,255,0.07);
     font-size: 1em;
     border-collapse: collapse;
 }
 #producten-tabel th, #producten-tabel td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-    white-space: nowrap;
+    color: #f6f8fa;
+    border-bottom: 1px solid #515866;
 }
 #producten-tabel th {
-    background: #f7f7f7;
-    color: #222;
+    background: #0E1011;
+    color: #6F7784;
     font-weight: 600;
-    border-bottom: 2px solid #4caf50;
+    border-bottom: 2px solid #515866;
 }
 #producten-tabel tr:last-child td {
     border-bottom: none;
@@ -305,38 +326,41 @@ table td:before {
 #producten-tabel thead {
     display: table-header-group !important;
 }
+#producten-tabel tbody tr,
+#producten-tabel tbody tr:first-child {
+    background: #0E1011;
+}
+#producten-tabel td {
+    color: #515866;
+    background: transparent;
+}
 
 /* Horizontaal scrollbare dagboek-tabel */
 #dagboek-tabel {
-    min-width: 700px;
-    width: max-content;
-    background: #fff;
+    background: #0E1011;
+    color: #f6f8fa;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: 1.5px solid rgba(255,255,255,0.07);
     font-size: 1em;
     border-collapse: collapse;
 }
 #dagboek-tabel th, #dagboek-tabel td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-    white-space: nowrap;
+    color: #f6f8fa;
+    border-bottom: 1px solid #515866;
 }
 #dagboek-tabel th {
-    background: #f7f7f7;
-    color: #222;
+    background: #0E1011;
+    color: #6F7784;
     font-weight: 600;
-    border-bottom: 2px solid #4caf50;
+    border-bottom: 2px solid #515866;
 }
-#dagboek-tabel tr:last-child td {
-    border-bottom: none;
+#dagboek-tabel tbody tr {
+    background: #0E1011;
 }
-/* Overschrijf blokweergave voor dagboek-tabel */
-#dagboek-tabel, #dagboek-tabel thead, #dagboek-tabel tbody, #dagboek-tabel th, #dagboek-tabel td, #dagboek-tabel tr {
-    display: revert !important;
-}
-#dagboek-tabel td:before {
-    display: none !important;
+#dagboek-tabel td {
+    color: #515866;
+    background: transparent;
 }
 
 .momenten-tabel-wrapper {
@@ -346,26 +370,32 @@ table td:before {
     margin-bottom: 18px;
 }
 #momenten-totaal-tabel {
-    min-width: 700px;
-    width: max-content;
-    background: #fff;
+    background: #0E1011;
+    color: #f6f8fa;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: 1.5px solid rgba(255,255,255,0.07);
     font-size: 1em;
     border-collapse: collapse;
 }
 #momenten-totaal-tabel th, #momenten-totaal-tabel td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-    white-space: nowrap;
+    color: #f6f8fa;
+    border-bottom: 1px solid #515866;
 }
 #momenten-totaal-tabel th {
-    background: #f7f7f7;
-    color: #222;
+    background: #0E1011;
+    color: #6F7784;
     font-weight: 600;
-    border-bottom: 2px solid #4caf50;
+    border-bottom: 2px solid #515866;
 }
+#momenten-totaal-tabel tbody tr {
+    background: #0E1011;
+}
+#momenten-totaal-tabel td {
+    color: #515866;
+    background: transparent;
+}
+
 #momenten-totaal-tabel tr:last-child td {
     border-bottom: none;
 }
@@ -379,4 +409,8 @@ table td:before {
 }
 #momenten-totaal-tabel thead {
     display: table-header-group !important;
+}
+
+h3 {
+    color: #6E7784;
 } 
