@@ -43,7 +43,7 @@ function renderProducten() {
             <td>${prod.suiker}</td>
             <td>${prod.eiwit}</td>
             <td><button class="edit-product" data-idx="${idx}" title="Bewerk">✏️</button></td>
-            <td><button class="delete-product" data-idx="${idx}" title="Verwijder">🗑️</button></td>
+            <td><button class="delete-product" data-idx="${idx}" title="Verwijder">✖️</button></td>
         `;
         productenTabelBody.appendChild(tr);
     });
@@ -65,6 +65,7 @@ function renderProducten() {
     // Verwijder-knoppen
     document.querySelectorAll('.delete-product').forEach(btn => {
         btn.addEventListener('click', (e) => {
+            if (!confirm('Bent u zeker dat u het wilt verwijderen?')) return;
             const idx = +btn.dataset.idx;
             let producten = getProducten();
             producten.splice(idx, 1);
@@ -216,7 +217,7 @@ function renderDagboek() {
             <td>${item.suiker}</td>
             <td>${item.eiwit}</td>
             <td><button class="edit-dagboek" data-idx="${idx}" title="Bewerk">✏️</button></td>
-            <td><button class="delete-dagboek" data-idx="${idx}" title="Verwijder">🗑️</button></td>
+            <td><button class="delete-dagboek" data-idx="${idx}" title="Verwijder">✖️</button></td>
         `;
         dagboekTabelBody.appendChild(tr);
     });
@@ -234,6 +235,7 @@ function renderDagboek() {
     // Verwijder
     document.querySelectorAll('.delete-dagboek').forEach(btn => {
         btn.addEventListener('click', () => {
+            if (!confirm('Bent u zeker dat u het wilt verwijderen?')) return;
             const idx = +btn.dataset.idx;
             const dagboek = getDagboek();
             dagboek.splice(idx, 1);
