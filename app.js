@@ -83,11 +83,21 @@ productForm.addEventListener('submit', e => {
         kcal: parseNum(document.getElementById('product-kcal').value),
         vet: parseNum(document.getElementById('product-vet').value),
         verzadigd: parseNum(document.getElementById('product-verzadigd').value),
-        kh: parseNum(document.getElementById('product-kh').value),
+        koolhydraten: parseNum(document.getElementById('product-koolhydraten').value),
         suiker: parseNum(document.getElementById('product-suiker').value),
         eiwit: parseNum(document.getElementById('product-eiwit').value)
     };
-    if (!prod.naam) return;
+    if (!prod.naam) {
+        alert('Vul een productnaam in.');
+        return;
+    }
+    for (const key of ['kcal','vet','verzadigd','koolhydraten','suiker','eiwit']) {
+        const val = document.getElementById('product-' + key).value;
+        if (val === '' || isNaN(prod[key])) {
+            alert('Vul een geldig getal in voor ' + key + '.');
+            return;
+        }
+    }
     let producten = getProducten();
     if (productForm.dataset.editIdx !== undefined) {
         // Bewerken
