@@ -51,7 +51,7 @@
       </select>
       <input list="producten-datalist" id="dagboek-product-zoek" placeholder="Zoek of kies product..." autocomplete="off" required>
       <datalist id="producten-datalist"></datalist>
-      <input type="number" id="dagboek-gram" placeholder="Aantal gram" min="1" required>
+      <input type="text" pattern="[0-9]*[.,]?[0-9]*" id="dagboek-gram" placeholder="Aantal gram" required>
       <button type="submit">Toevoegen aan dagboek</button>
     </form>
     <div class="dagboek-tabel-wrapper">

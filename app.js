@@ -238,10 +238,13 @@ function renderDagboek() {
 // --- Dagboek toevoegen/bewerken ---
 dagboekForm.addEventListener('submit', e => {
     e.preventDefault();
+    function parseNum(val) {
+        return +String(val).replace(',', '.');
+    }
     const naam = zoekInput.value.trim();
     const producten = getProducten();
     const prod = producten.find(p => p.naam.toLowerCase() === naam.toLowerCase());
-    const gram = +gramInput.value;
+    const gram = parseNum(gramInput.value);
     const moment = document.getElementById('dagboek-moment').value;
     if (!naam || !gram || !prod || !moment) return;
     const item = {
