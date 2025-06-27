@@ -348,6 +348,9 @@ table td:before {
 #dagboek-tabel th, #dagboek-tabel td {
     color: #f6f8fa;
     border-bottom: 1px solid #515866;
+    display: table-cell !important;
+    justify-content: unset !important;
+    align-items: unset !important;
 }
 #dagboek-tabel th {
     background: #0E1011;
@@ -361,6 +364,12 @@ table td:before {
 #dagboek-tabel td {
     color: #515866;
     background: transparent;
+}
+#dagboek-tabel tr {
+    display: table-row !important;
+}
+#dagboek-tabel thead {
+    display: table-header-group !important;
 }
 
 .momenten-tabel-wrapper {
