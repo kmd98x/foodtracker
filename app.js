@@ -121,6 +121,43 @@ const suggestiesDiv = document.getElementById('suggesties');
 const gramInput = document.getElementById('dagboek-gram');
 const productenDatalist = document.getElementById('producten-datalist');
 
+// --- Dagboek dag-navigatie ---
+const dagboekDatumLabel = document.getElementById('dagboek-datum');
+const dagboekPrevBtn = document.getElementById('dagboek-prevdag');
+const dagboekNextBtn = document.getElementById('dagboek-nextdag');
+
+function formatDateLabel(date) {
+    const dagen = ['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'];
+    const maanden = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+    return `${dagen[date.getDay()]} ${date.getDate()} ${maanden[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+function getTodayDateStr() {
+    const d = new Date();
+    return d.toISOString().slice(0,10);
+}
+let geselecteerdeDag = getTodayDateStr();
+
+function setDagboekDatumLabel() {
+    const d = new Date(geselecteerdeDag);
+    dagboekDatumLabel.textContent = formatDateLabel(d);
+}
+
+dagboekPrevBtn.addEventListener('click', () => {
+    const d = new Date(geselecteerdeDag);
+    d.setDate(d.getDate() - 1);
+    geselecteerdeDag = d.toISOString().slice(0,10);
+    setDagboekDatumLabel();
+    renderDagboek();
+});
+dagboekNextBtn.addEventListener('click', () => {
+    const d = new Date(geselecteerdeDag);
+    d.setDate(d.getDate() + 1);
+    geselecteerdeDag = d.toISOString().slice(0,10);
+    setDagboekDatumLabel();
+    renderDagboek();
+});
+
 function getDagboek() {
     return JSON.parse(localStorage.getItem('dagboek') || '[]');
 }
@@ -202,7 +239,8 @@ function renderMomentenTotaalTabel() {
 }
 
 function renderDagboek() {
-    const dagboek = getDagboek();
+    setDagboekDatumLabel();
+    const dagboek = getDagboek().filter(item => (item.datum || getTodayDateStr()) === geselecteerdeDag);
     dagboekTabelBody.innerHTML = '';
     dagboek.forEach((item, idx) => {
         const tr = document.createElement('tr');
@@ -225,7 +263,7 @@ function renderDagboek() {
     document.querySelectorAll('.edit-dagboek').forEach(btn => {
         btn.addEventListener('click', () => {
             const idx = +btn.dataset.idx;
-            const item = getDagboek()[idx];
+            const item = getDagboek().filter(item => (item.datum || getTodayDateStr()) === geselecteerdeDag)[idx];
             zoekInput.value = item.naam;
             gramInput.value = item.gram;
             document.getElementById('dagboek-moment').value = item.moment || '';
@@ -237,8 +275,12 @@ function renderDagboek() {
         btn.addEventListener('click', () => {
             if (!confirm('Bent u zeker dat u het wilt verwijderen?')) return;
             const idx = +btn.dataset.idx;
-            const dagboek = getDagboek();
-            dagboek.splice(idx, 1);
+            let dagboek = getDagboek();
+            // Filter op geselecteerde dag
+            const dagboekVanDag = dagboek.filter(item => (item.datum || getTodayDateStr()) === geselecteerdeDag);
+            const itemToDelete = dagboekVanDag[idx];
+            // Verwijder uit alle data
+            dagboek = dagboek.filter(item => item !== itemToDelete);
             setDagboek(dagboek);
             renderDagboek();
             renderOverzicht();
@@ -268,11 +310,16 @@ dagboekForm.addEventListener('submit', e => {
         koolhydraten: +(prod.koolhydraten * gram / 100).toFixed(1),
         suiker: +(prod.suiker * gram / 100).toFixed(1),
         eiwit: +(prod.eiwit * gram / 100).toFixed(1),
-        moment
+        moment,
+        datum: geselecteerdeDag
     };
-    const dagboek = getDagboek();
+    let dagboek = getDagboek();
     if (bewerkIndex !== null) {
-        dagboek[bewerkIndex] = item;
+        // Filter op geselecteerde dag
+        const dagboekVanDag = dagboek.filter(item => (item.datum || getTodayDateStr()) === geselecteerdeDag);
+        const itemToEdit = dagboekVanDag[bewerkIndex];
+        const idxInAll = dagboek.indexOf(itemToEdit);
+        dagboek[idxInAll] = item;
         bewerkIndex = null;
     } else {
         dagboek.push(item);
@@ -286,6 +333,7 @@ dagboekForm.addEventListener('submit', e => {
 productForm.addEventListener('submit', updateProductenUI);
 
 // --- Init ---
+setDagboekDatumLabel();
 renderDagboek();
 
 // Overzicht & Pie charts
