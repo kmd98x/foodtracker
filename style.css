@@ -191,19 +191,21 @@ table td:before {
 .charts {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 24px 0;
     justify-content: center;
     margin-bottom: 18px;
+    padding-bottom: 60px;
 }
 .charts canvas {
     background: transparent;
     border: none;
-    border-radius: 50%;
     box-shadow: none;
     padding: 6px;
-    width: 120px !important;
-    height: 150px !important;
-    margin-bottom: 48px;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 24px;
+    display: block;
+    aspect-ratio: 1 / 1;
 }
 
 .behoefte {
