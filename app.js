@@ -192,7 +192,7 @@ function berekenTotaal(items) {
 }
 
 function renderMomentenTotaalTabel() {
-    const dagboek = getDagboek();
+    const dagboek = getDagboek().filter(item => (item.datum || getTodayDateStr()) === geselecteerdeDag);
     const momenten = [
         'Voor training',
         'Na training',
@@ -376,7 +376,9 @@ function renderOverzicht() {
         // kleur rood als limiet overschreden
         let kleur = data.value > data.limiet ? '#c62828' : null;
         let gradient = null;
-        if (!kleur) {
+        if (!kleur && data.value === 0) {
+            kleur = '#0E1011'; // gewenste kleur voor 0
+        } else if (!kleur) {
             gradient = ctx.createLinearGradient(0, 0, 120, 120);
             gradient.addColorStop(0, '#8A4674');
             gradient.addColorStop(0.5, '#D26A78');
@@ -388,7 +390,7 @@ function renderOverzicht() {
             data: {
                 labels: [mainLabel],
                 datasets: [{
-                    data: [data.value],
+                    data: [Math.max(data.value, 0.0001)], // altijd een cirkel
                     backgroundColor: [kleur],
                     borderColor: '#606672',
                     borderWidth: 2
