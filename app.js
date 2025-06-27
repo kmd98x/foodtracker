@@ -373,25 +373,29 @@ function renderOverzicht() {
         if (charts[data.id]) charts[data.id].destroy();
         // label met gegeten/behoefte
         const mainLabel = `${data.label} (${data.value.toFixed(1)}/${data.max})`;
+        // Bepaal data voor de pie chart
+        const gegeten = Math.min(data.value, data.max);
+        const resterend = Math.max(data.max - data.value, 0);
+        let kleuren = [];
         // kleur rood als limiet overschreden
-        let kleur = data.value > data.limiet ? '#c62828' : null;
-        let gradient = null;
-        if (!kleur && data.value === 0) {
-            kleur = '#0E1011'; // gewenste kleur voor 0
-        } else if (!kleur) {
-            gradient = ctx.createLinearGradient(0, 0, 120, 120);
+        if (data.value > data.limiet) {
+            kleuren = ['#c62828', '#444']; // rood + grijs
+        } else if (data.value === 0) {
+            kleuren = ['#0E1011', '#444']; // leeg + grijs
+        } else {
+            let gradient = ctx.createLinearGradient(0, 0, 120, 120);
             gradient.addColorStop(0, '#8A4674');
             gradient.addColorStop(0.5, '#D26A78');
             gradient.addColorStop(1, '#E48478');
-            kleur = gradient;
+            kleuren = [gradient, '#444'];
         }
         charts[data.id] = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: [mainLabel],
+                labels: [mainLabel, 'Resterend'],
                 datasets: [{
-                    data: [Math.max(data.value, 0.0001)], // altijd een cirkel
-                    backgroundColor: [kleur],
+                    data: [gegeten, resterend],
+                    backgroundColor: kleuren,
                     borderColor: '#606672',
                     borderWidth: 2
                 }]
@@ -404,7 +408,7 @@ function renderOverzicht() {
                         labels: {
                             color: '#606672',
                             font: { weight: '500', size: 14 },
-                            filter: (legendItem, data) => legendItem.text !== 'Resterend'
+                            filter: (legendItem, data) => true
                         }
                     }
                 },
