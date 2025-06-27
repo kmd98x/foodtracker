@@ -348,7 +348,8 @@ const behoefte = {
 
 let charts = {};
 function renderOverzicht() {
-    const dagboek = getDagboek();
+    setOverzichtDatumLabel();
+    const dagboek = getDagboek().filter(item => (item.datum || getTodayDateStr()) === geselecteerdeOverzichtDag);
     const totals = dagboek.reduce((acc, item) => {
         acc.kcal += Number(item.kcal);
         acc.vet += Number(item.vet);
@@ -411,7 +412,11 @@ function renderOverzicht() {
     });
 }
 // Herteken overzicht als je naar tabblad gaat
- tabButtons[2].addEventListener('click', renderOverzicht);
+ tabButtons[2].addEventListener('click', () => {
+    geselecteerdeOverzichtDag = getTodayDateStr();
+    setOverzichtDatumLabel();
+    renderOverzicht();
+ });
 // Ook na toevoegen aan dagboek
  dagboekForm.addEventListener('submit', renderOverzicht); 
 
@@ -446,4 +451,31 @@ document.addEventListener('click', e => {
     if (!suggestiesDiv.contains(e.target) && e.target !== zoekInput) {
         suggestiesDiv.style.display = 'none';
     }
+});
+
+// --- Overzicht dag-navigatie ---
+const overzichtDatumLabel = document.getElementById('overzicht-datum');
+const overzichtPrevBtn = document.getElementById('overzicht-prevdag');
+const overzichtNextBtn = document.getElementById('overzicht-nextdag');
+
+let geselecteerdeOverzichtDag = getTodayDateStr();
+
+function setOverzichtDatumLabel() {
+    const d = new Date(geselecteerdeOverzichtDag);
+    overzichtDatumLabel.textContent = formatDateLabel(d);
+}
+
+overzichtPrevBtn.addEventListener('click', () => {
+    const d = new Date(geselecteerdeOverzichtDag);
+    d.setDate(d.getDate() - 1);
+    geselecteerdeOverzichtDag = d.toISOString().slice(0,10);
+    setOverzichtDatumLabel();
+    renderOverzicht();
+});
+overzichtNextBtn.addEventListener('click', () => {
+    const d = new Date(geselecteerdeOverzichtDag);
+    d.setDate(d.getDate() + 1);
+    geselecteerdeOverzichtDag = d.toISOString().slice(0,10);
+    setOverzichtDatumLabel();
+    renderOverzicht();
 }); 
