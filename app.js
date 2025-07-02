@@ -1,24 +1,3 @@
-// Tabbladen wisselen
-const tabButtons = [
-    document.getElementById('tab-producten'),
-    document.getElementById('tab-dagboek'),
-    document.getElementById('tab-overzicht')
-];
-const tabSections = [
-    document.getElementById('producten-section'),
-    document.getElementById('dagboek-section'),
-    document.getElementById('overzicht-section')
-];
-
-function showTab(index) {
-    tabSections.forEach((sec, i) => {
-        sec.style.display = i === index ? '' : 'none';
-        tabButtons[i].classList.toggle('active', i === index);
-    });
-}
-tabButtons.forEach((btn, i) => btn.addEventListener('click', () => showTab(i)));
-showTab(0);
-
 // Productenbeheer
 const productForm = document.getElementById('product-form');
 const productenTabelBody = document.querySelector('#producten-tabel tbody');
@@ -230,10 +209,10 @@ function renderMomentenTotaalTabel() {
             <td>${r.moment}</td>
             <td${r.kcal > limieten.kcal ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.kcal.toFixed(1)}</td>
             <td${r.vet > limieten.vet ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.vet.toFixed(1)}</td>
-            <td${r.koolhydraten > limieten.koolhydraten ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.koolhydraten.toFixed(1)}</td>
-            <td${r.eiwit > limieten.eiwit ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.eiwit.toFixed(1)}</td>
-            <td${r.suiker > limieten.suiker ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.suiker.toFixed(1)}</td>
             <td${r.verzadigd > limieten.verzadigd ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.verzadigd.toFixed(1)}</td>
+            <td${r.koolhydraten > limieten.koolhydraten ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.koolhydraten.toFixed(1)}</td>
+            <td${r.suiker > limieten.suiker ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.suiker.toFixed(1)}</td>
+            <td${r.eiwit > limieten.eiwit ? ' style="color:#c62828;font-weight:bold;"' : ''}>${r.eiwit.toFixed(1)}</td>
         </tr>
     `).join('');
 }
@@ -417,12 +396,12 @@ function renderOverzicht() {
         });
     });
 }
-// Herteken overzicht als je naar tabblad gaat
- tabButtons[2].addEventListener('click', () => {
-    geselecteerdeOverzichtDag = getTodayDateStr();
-    setOverzichtDatumLabel();
-    renderOverzicht();
- });
+// Voeg toe aan het nieuwe tab-systeem:
+document.querySelector('[data-tab="overzicht"]').addEventListener('click', () => {
+  geselecteerdeOverzichtDag = getTodayDateStr();
+  setOverzichtDatumLabel();
+  renderOverzicht();
+});
 // Ook na toevoegen aan dagboek
  dagboekForm.addEventListener('submit', renderOverzicht); 
 
@@ -484,4 +463,16 @@ overzichtNextBtn.addEventListener('click', () => {
     geselecteerdeOverzichtDag = d.toISOString().slice(0,10);
     setOverzichtDatumLabel();
     renderOverzicht();
+});
+
+// Tab functionaliteit herstellen
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabSections = document.querySelectorAll('.tab-section');
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    tabSections.forEach(sec => sec.style.display = 'none');
+    document.getElementById(btn.dataset.tab + '-section').style.display = '';
+  });
 }); 
