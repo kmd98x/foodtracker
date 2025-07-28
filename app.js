@@ -1,6 +1,7 @@
 // Productenbeheer
 const productForm = document.getElementById('product-form');
 const productenTabelBody = document.querySelector('#producten-tabel tbody');
+const productenZoekInput = document.getElementById('producten-zoek');
 
 function getProducten() {
     return JSON.parse(localStorage.getItem('producten') || '[]');
@@ -8,11 +9,16 @@ function getProducten() {
 function setProducten(producten) {
     localStorage.setItem('producten', JSON.stringify(producten));
 }
-function renderProducten() {
+function renderProducten(filter = '') {
     const producten = getProducten();
     productenTabelBody.innerHTML = '';
-    producten.forEach((prod, idx) => {
+    let filtered = producten;
+    if (filter) {
+        filtered = producten.filter(prod => prod.naam.toLowerCase().includes(filter.toLowerCase()));
+    }
+    filtered.forEach((prod, idx) => {
         const tr = document.createElement('tr');
+        tr.setAttribute('data-naam', prod.naam.toLowerCase());
         tr.innerHTML = `
             <td>${prod.naam}</td>
             <td>${prod.kcal}</td>
@@ -475,4 +481,56 @@ tabBtns.forEach(btn => {
     tabSections.forEach(sec => sec.style.display = 'none');
     document.getElementById(btn.dataset.tab + '-section').style.display = '';
   });
+}); 
+
+// Suggesties dropdown
+let productenSuggestieBox;
+productenZoekInput.addEventListener('input', function() {
+    const val = this.value.trim().toLowerCase();
+    renderProducten(val);
+    if (productenSuggestieBox) productenSuggestieBox.remove();
+    if (!val) return;
+    const producten = getProducten();
+    const suggesties = producten.filter(p => p.naam.toLowerCase().includes(val));
+    if (suggesties.length === 0) return;
+    productenSuggestieBox = document.createElement('div');
+    productenSuggestieBox.style.position = 'absolute';
+    productenSuggestieBox.style.background = '#23272A';
+    productenSuggestieBox.style.color = '#fff';
+    productenSuggestieBox.style.border = '1px solid #444';
+    productenSuggestieBox.style.borderRadius = '6px';
+    productenSuggestieBox.style.zIndex = 10;
+    productenSuggestieBox.style.width = productenZoekInput.offsetWidth + 'px';
+    productenSuggestieBox.style.maxHeight = '180px';
+    productenSuggestieBox.style.overflowY = 'auto';
+    productenSuggestieBox.style.top = (productenZoekInput.getBoundingClientRect().bottom + window.scrollY) + 'px';
+    productenSuggestieBox.style.left = (productenZoekInput.getBoundingClientRect().left + window.scrollX) + 'px';
+    suggesties.forEach(p => {
+        const opt = document.createElement('div');
+        opt.textContent = p.naam;
+        opt.style.padding = '7px 12px';
+        opt.style.cursor = 'pointer';
+        opt.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            productenZoekInput.value = p.naam;
+            renderProducten(p.naam);
+            if (productenSuggestieBox) productenSuggestieBox.remove();
+            // Scroll naar de juiste rij
+            setTimeout(() => {
+                const row = Array.from(productenTabelBody.children).find(tr => tr.getAttribute('data-naam') === p.naam.toLowerCase());
+                if (row) {
+                    row.scrollIntoView({behavior:'smooth', block:'center'});
+                    row.style.background = '#2d2f36';
+                    setTimeout(() => { row.style.background = ''; }, 1200);
+                }
+            }, 50);
+        });
+        productenSuggestieBox.appendChild(opt);
+    });
+    document.body.appendChild(productenSuggestieBox);
+});
+document.addEventListener('click', function(e) {
+    if (productenSuggestieBox && !productenZoekInput.contains(e.target)) {
+        productenSuggestieBox.remove();
+    }
 }); 
