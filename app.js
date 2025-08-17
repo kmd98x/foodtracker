@@ -190,7 +190,7 @@ function renderMomentenTotaalTabel() {
         kcal: 1800,
         vet: 50,
         koolhydraten: 220,
-        eiwit: 120,
+        eiwit: 130,
         suiker: 30,
         verzadigd: 15
     };
@@ -324,7 +324,7 @@ renderDagboek();
 // Overzicht & Pie charts
 const behoefte = {
     kcal: 1800,
-    eiwit: 120,
+    eiwit: 130,
     vet: 50,
     koolhydraten: 220,
     suiker: 30, // nu limiet opgegeven
