@@ -187,9 +187,9 @@ function renderMomentenTotaalTabel() {
         'Diner'
     ];
     const limieten = {
-        kcal: 1600,
-        vet: 59,
-        koolhydraten: 150,
+        kcal: 1800,
+        vet: 50,
+        koolhydraten: 220,
         eiwit: 120,
         suiker: 30,
         verzadigd: 15
@@ -323,10 +323,10 @@ renderDagboek();
 
 // Overzicht & Pie charts
 const behoefte = {
-    kcal: 1600,
+    kcal: 1800,
     eiwit: 120,
-    vet: 59,
-    koolhydraten: 150,
+    vet: 50,
+    koolhydraten: 220,
     suiker: 30, // nu limiet opgegeven
     verzadigd: 15 // nu limiet opgegeven
 };
@@ -349,7 +349,7 @@ function renderOverzicht() {
         {id:'chart-kcal', label:'Kcal', value:totals.kcal, max:behoefte.kcal, limiet:behoefte.kcal},
         {id:'chart-vet', label:'Vet (g)', value:totals.vet, max:behoefte.vet, limiet:behoefte.vet},
         {id:'chart-verzadigd', label:'Verzadigd vet (g)', value:totals.verzadigd, max:behoefte.verzadigd, limiet:behoefte.verzadigd},
-        {id:'chart-kh', label:'Koolhydraten (g)', value:totals.koolhydraten, max:150, limiet:150},
+        {id:'chart-kh', label:'Koolhydraten (g)', value:totals.koolhydraten, max:220, limiet:220},
         {id:'chart-suiker', label:'Suiker (g)', value:totals.suiker, max:behoefte.suiker, limiet:behoefte.suiker},
         {id:'chart-eiwit', label:'Eiwit (g)', value:totals.eiwit, max:behoefte.eiwit, limiet:behoefte.eiwit}
     ];
