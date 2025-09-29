@@ -24,17 +24,24 @@ nav {
 nav button {
     padding: 10px 18px;
     border: none;
-    background: linear-gradient(90deg, #1B1D4F 0%, #1A1033 60%, #0A1B3C 100%);
+    background: linear-gradient(90deg, #0B0D14 0%, #0D142A 60%, #123072 100%);
     color: #fff;
     border-radius: 8px;
     font-size: 1em;
     cursor: pointer;
     transition: background 0.2s, box-shadow 0.2s, color 0.2s;
     box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    border: 1px solid rgba(255,255,255,0.08);
 }
 nav button.active, nav button:hover {
     filter: brightness(1.10) saturate(1.15);
-    box-shadow: 0 6px 20px rgba(23, 39, 88, 0.35);
+    box-shadow: 0 6px 20px rgba(16, 36, 89, 0.35);
+}
+
+/* Maak actieve tab duidelijker zichtbaar t.o.v. achtergrond */
+nav button.active {
+    background: linear-gradient(90deg, #101425 0%, #122553 60%, #1C3F8B 100%);
+    box-shadow: 0 8px 24px rgba(16, 36, 89, 0.45);
 }
 
 .tab-section {
@@ -82,10 +89,10 @@ form input:focus, form select:focus {
     box-shadow: 0 0 0 2px transparent;
     background-image:
         linear-gradient(rgba(12,14,22,0.55), rgba(12,14,22,0.55)),
-        linear-gradient(90deg, #1B1D4F 0%, #1A1033 60%, #0A1B3C 100%);
+        linear-gradient(90deg, #000000 0%, #0A0E1F 60%, #102459 100%);
 }
 form button {
-    background: linear-gradient(90deg, #1B1D4F 0%, #1A1033 60%, #0A1B3C 100%);
+    background: linear-gradient(90deg, #000000 0%, #0A0E1F 60%, #102459 100%);
     color: #fff;
     font-weight: 600;
     border: none;
@@ -96,7 +103,7 @@ form button {
 }
 form button:hover {
     filter: brightness(1.10) saturate(1.15);
-    box-shadow: 0 6px 20px rgba(23, 39, 88, 0.35);
+    box-shadow: 0 6px 20px rgba(16, 36, 89, 0.35);
 }
 form input::placeholder {
     color: #515866;

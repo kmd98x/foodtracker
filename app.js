@@ -369,9 +369,9 @@ function renderOverzicht() {
             kleuren = ['#0E1011', '#444']; // leeg + grijs
         } else {
             let gradient = ctx.createLinearGradient(0, 0, 120, 120);
-            gradient.addColorStop(0, '#1B1D4F');
-            gradient.addColorStop(0.5, '#1A1033');
-            gradient.addColorStop(1, '#0A1B3C');
+            gradient.addColorStop(0, '#000000');
+            gradient.addColorStop(0.5, '#0A0E1F');
+            gradient.addColorStop(1, '#102459');
             kleuren = [gradient, '#444'];
         }
         charts[data.id] = new Chart(ctx, {
