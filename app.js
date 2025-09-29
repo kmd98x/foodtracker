@@ -187,7 +187,7 @@ function renderMomentenTotaalTabel() {
         'Diner'
     ];
     const limieten = {
-        kcal: 1800,
+        kcal: 2000,
         vet: 50,
         koolhydraten: 220,
         eiwit: 130,
@@ -323,7 +323,7 @@ renderDagboek();
 
 // Overzicht & Pie charts
 const behoefte = {
-    kcal: 1800,
+    kcal: 2000,
     eiwit: 130,
     vet: 50,
     koolhydraten: 220,
