@@ -364,15 +364,19 @@ function renderOverzicht() {
         let kleuren = [];
         // kleur rood als limiet overschreden
         if (data.value > data.limiet) {
-            kleuren = ['#c62828', '#444']; // rood + grijs
+            kleuren = ['#c62828', '#444']; // rood + grijs (resterend grijs)
         } else if (data.value === 0) {
-            kleuren = ['#0E1011', '#444']; // leeg + grijs
+            // Leeg: volledige ring zwart
+            kleuren = ['#000000', '#000000'];
         } else {
+            // Gedeeltelijk gevuld of volledig binnen limiet:
+            // 'gegeten' krijgt dezelfde gradient als de tab-knoppen (zwart -> donker royal blauw)
+            // 'resterend' blijft zwart voor chique contrast
             let gradient = ctx.createLinearGradient(0, 0, 120, 120);
-            gradient.addColorStop(0, '#000000');
-            gradient.addColorStop(0.5, '#0A0E1F');
-            gradient.addColorStop(1, '#102459');
-            kleuren = [gradient, '#444'];
+            gradient.addColorStop(0, '#0B0D14');
+            gradient.addColorStop(0.5, '#0D142A');
+            gradient.addColorStop(1, '#123072');
+            kleuren = [gradient, '#000000'];
         }
         charts[data.id] = new Chart(ctx, {
             type: 'pie',
