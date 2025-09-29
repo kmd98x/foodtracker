@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Inter', system-ui, Arial, sans-serif;
-    background: #0E1011;
+    background: radial-gradient(1200px 800px at 20% 0%, #0A0B0E 0%, #080A0F 40%, #06070B 100%);
     color: #222;
     margin: 0;
     padding: 0;
@@ -24,7 +24,7 @@ nav {
 nav button {
     padding: 10px 18px;
     border: none;
-    background: linear-gradient(90deg, #8A4674 0%, #D26A78 60%, #E48478 100%);
+    background: linear-gradient(90deg, #1B1D4F 0%, #1A1033 60%, #0A1B3C 100%);
     color: #fff;
     border-radius: 8px;
     font-size: 1em;
@@ -34,19 +34,21 @@ nav button {
 }
 nav button.active, nav button:hover {
     filter: brightness(1.10) saturate(1.15);
-    box-shadow: 0 4px 16px rgba(212,106,120,0.18);
+    box-shadow: 0 6px 20px rgba(23, 39, 88, 0.35);
 }
 
 .tab-section {
     width: 98vw;
     max-width: 480px;
     margin: 0 auto 24px auto;
-    background: #131617;
-    border: 1.5px solid rgba(255,255,255,0.07);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.10);
     color: #f6f8fa;
     padding: 14px 4vw 18px 4vw;
     border-radius: 16px;
-    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    backdrop-filter: blur(20px) saturate(120%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,11 +69,11 @@ form input, form button, form select {
     padding: 12px;
     font-size: 1em;
     border-radius: 8px;
-    border: 1px solid #333;
+    border: 1px solid rgba(255,255,255,0.08);
     margin-bottom: 0;
     outline: none;
-    background: #0E1011;
-    color: #A9A9A9;
+    background: rgba(12, 14, 22, 0.55);
+    color: #B5BDCA;
 }
 form input:focus, form select:focus {
     border: 2px solid transparent;
@@ -79,11 +81,11 @@ form input:focus, form select:focus {
     background-clip: padding-box, border-box;
     box-shadow: 0 0 0 2px transparent;
     background-image:
-        linear-gradient(#0E1011, #0E1011),
-        linear-gradient(90deg, #8A4674 0%, #D26A78 60%, #E48478 100%);
+        linear-gradient(rgba(12,14,22,0.55), rgba(12,14,22,0.55)),
+        linear-gradient(90deg, #1B1D4F 0%, #1A1033 60%, #0A1B3C 100%);
 }
 form button {
-    background: linear-gradient(90deg, #8A4674 0%, #D26A78 60%, #E48478 100%);
+    background: linear-gradient(90deg, #1B1D4F 0%, #1A1033 60%, #0A1B3C 100%);
     color: #fff;
     font-weight: 600;
     border: none;
@@ -94,7 +96,7 @@ form button {
 }
 form button:hover {
     filter: brightness(1.10) saturate(1.15);
-    box-shadow: 0 4px 16px rgba(212,106,120,0.18);
+    box-shadow: 0 6px 20px rgba(23, 39, 88, 0.35);
 }
 form input::placeholder {
     color: #515866;
@@ -119,7 +121,7 @@ table thead {
 table tr {
     display: block;
     margin-bottom: 10px;
-    background: #fafafa;
+    background: transparent;
     border-radius: 10px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
     padding: 6px 0;
@@ -257,7 +259,7 @@ table td:before {
     }
     table tr {
         display: table-row;
-        background: #fff;
+        background: transparent;
         box-shadow: none;
         border-radius: 0;
         padding: 0;
@@ -265,14 +267,14 @@ table td:before {
     table td, table th {
         display: table-cell;
         padding: 14px 10px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
         font-size: 1.08em;
     }
     table th {
-        background: #f7f7f7;
-        color: #222;
+        background: transparent;
+        color: #7F8AA3;
         font-weight: 600;
-        border-bottom: 2px solid #4caf50;
+        border-bottom: 2px solid rgba(255,255,255,0.10);
     }
     table td:before {
         display: none;
@@ -296,23 +298,23 @@ table td:before {
     box-sizing: border-box;
 }
 #producten-tabel {
-    background: #131617;
+    background: transparent;
     color: #f6f8fa;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    border: 1.5px solid rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
     font-size: 1em;
     border-collapse: collapse;
 }
 #producten-tabel th, #producten-tabel td {
     color: #f6f8fa;
-    border-bottom: 1px solid #515866;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 #producten-tabel th {
-    background: #0E1011;
-    color: #6F7784;
+    background: transparent;
+    color: #7F8AA3;
     font-weight: 600;
-    border-bottom: 2px solid #515866;
+    border-bottom: 2px solid rgba(255,255,255,0.10);
 }
 #producten-tabel tr:last-child td {
     border-bottom: none;
@@ -330,41 +332,41 @@ table td:before {
 }
 #producten-tabel tbody tr,
 #producten-tabel tbody tr:first-child {
-    background: #0E1011;
+    background: transparent;
 }
 #producten-tabel td {
-    color: #515866;
+    color: #8B97AE;
     background: transparent;
 }
 
 /* Horizontaal scrollbare dagboek-tabel */
 #dagboek-tabel {
-    background: #0E1011;
+    background: transparent;
     color: #f6f8fa;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    border: 1.5px solid rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
     font-size: 1em;
     border-collapse: collapse;
 }
 #dagboek-tabel th, #dagboek-tabel td {
     color: #f6f8fa;
-    border-bottom: 1px solid #515866;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
     display: table-cell !important;
     justify-content: unset !important;
     align-items: unset !important;
 }
 #dagboek-tabel th {
-    background: #0E1011;
-    color: #6F7784;
+    background: transparent;
+    color: #7F8AA3;
     font-weight: 600;
-    border-bottom: 2px solid #515866;
+    border-bottom: 2px solid rgba(255,255,255,0.10);
 }
 #dagboek-tabel tbody tr {
-    background: #0E1011;
+    background: transparent;
 }
 #dagboek-tabel td {
-    color: #515866;
+    color: #8B97AE;
     background: transparent;
 }
 #dagboek-tabel tr {
@@ -381,29 +383,29 @@ table td:before {
     margin-bottom: 18px;
 }
 #momenten-totaal-tabel {
-    background: #0E1011;
+    background: transparent;
     color: #f6f8fa;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    border: 1.5px solid rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
     font-size: 1em;
     border-collapse: collapse;
 }
 #momenten-totaal-tabel th, #momenten-totaal-tabel td {
     color: #f6f8fa;
-    border-bottom: 1px solid #515866;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 #momenten-totaal-tabel th {
-    background: #0E1011;
-    color: #6F7784;
+    background: transparent;
+    color: #7F8AA3;
     font-weight: 600;
-    border-bottom: 2px solid #515866;
+    border-bottom: 2px solid rgba(255,255,255,0.10);
 }
 #momenten-totaal-tabel tbody tr {
-    background: #0E1011;
+    background: transparent;
 }
 #momenten-totaal-tabel td {
-    color: #515866;
+    color: #8B97AE;
     background: transparent;
 }
 
