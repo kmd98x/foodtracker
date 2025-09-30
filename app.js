@@ -1,3 +1,50 @@
+// Password Protection
+const PASSWORD = 'kmd2024'; // Verander dit naar je gewenste wachtwoord
+const passwordModal = document.getElementById('password-modal');
+const appContent = document.getElementById('app-content');
+const passwordInput = document.getElementById('password-input');
+const passwordSubmit = document.getElementById('password-submit');
+const passwordError = document.getElementById('password-error');
+
+function showApp() {
+    passwordModal.style.display = 'none';
+    appContent.style.display = 'block';
+}
+
+function showError(message) {
+    passwordError.textContent = message;
+    passwordInput.style.borderColor = '#ff6b6b';
+}
+
+function clearError() {
+    passwordError.textContent = '';
+    passwordInput.style.borderColor = 'rgba(255,255,255,0.15)';
+}
+
+passwordSubmit.addEventListener('click', () => {
+    const enteredPassword = passwordInput.value;
+    if (enteredPassword === PASSWORD) {
+        showApp();
+    } else {
+        showError('Onjuist wachtwoord. Probeer opnieuw.');
+        passwordInput.value = '';
+        passwordInput.focus();
+    }
+});
+
+passwordInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        passwordSubmit.click();
+    }
+});
+
+passwordInput.addEventListener('input', clearError);
+
+// Focus op het wachtwoord veld bij laden
+window.addEventListener('load', () => {
+    passwordInput.focus();
+});
+
 // Productenbeheer
 const productForm = document.getElementById('product-form');
 const productenTabelBody = document.querySelector('#producten-tabel tbody');
