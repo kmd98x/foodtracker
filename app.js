@@ -369,7 +369,7 @@ setDagboekDatumLabel();
 renderDagboek();
 
 // Overzicht & Pie charts
-const behoefte = {
+const behoefte = { 
     kcal: 2000,
     eiwit: 130,
     vet: 50,
