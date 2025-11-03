@@ -538,3 +538,46 @@ document.addEventListener('click', function(e) {
         productenSuggestieBox.remove();
     }
 }); 
+
+// --- Kopieer data knop in navigatie ---
+const copyDataBtn = document.getElementById('copy-data-btn');
+if (copyDataBtn) {
+    copyDataBtn.addEventListener('click', async () => {
+        const payload = {
+            versie: 1,
+            geëxporteerdOp: new Date().toISOString(),
+            producten: getProducten(),
+            dagboek: getDagboek()
+        };
+        const text = JSON.stringify(payload, null, 2);
+
+        async function fallbackCopy(textToCopy) {
+            const ta = document.createElement('textarea');
+            ta.value = textToCopy;
+            ta.style.position = 'fixed';
+            ta.style.top = '-1000px';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            try { document.execCommand('copy'); } finally { document.body.removeChild(ta); }
+        }
+
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(text);
+            } else {
+                await fallbackCopy(text);
+            }
+            const prev = copyDataBtn.textContent;
+            copyDataBtn.textContent = 'Gekopieerd!';
+            copyDataBtn.disabled = true;
+            setTimeout(() => {
+                copyDataBtn.textContent = prev;
+                copyDataBtn.disabled = false;
+            }, 1400);
+        } catch (err) {
+            console.error('Kopiëren mislukt:', err);
+            alert('Kopiëren mislukt. Probeer opnieuw.');
+        }
+    });
+}
